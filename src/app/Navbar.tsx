@@ -1,39 +1,45 @@
 import Link from "next/link";
+import styles from "./Navbar.module.scss"; 
 import { usePathname } from "next/navigation";
-import { motion, useAnimation } from "framer-motion";
 
-function SearchHeader() {
-  const navAnimation = useAnimation();
-  const path = usePathname();
-
-
+function Navbar() {
+  const pathname = usePathname();
 
   return (
-    <motion.nav 
-      className="flex justify-between items-center fixed w-full h-20 top-0 text-sm bg-transparent"
-      animate={navAnimation}
-      initial="top"
-    >
-      <div className="flex items-center">
-        <ul className="flex items-center">
-          <li className="mr-5 text-gray-400 relative flex justify-center flex-col text-lg cursor-pointer hover:text-orange-500">
-            <Link href="/">home</Link>
-            {path === "/" && (
-              <motion.span className="absolute rounded-md h-11 w-11 bg-orange-500 bottom-[-15px] left-0 right-0 mx-auto"></motion.span>
-            )}
+    <div className={styles.navbar}>
+      <div>
+        <ul>
+          <h1>Mono Letter</h1>
+          <li>
+            <Link href="/">
+              <h2 className={pathname === "/" ? styles.active : ""}>
+                자기소개서 작성하기
+              </h2>
+            </Link>
           </li>
-        </ul>
-        <ul className="flex items-center">
-          <li className="mr-5 text-gray-400 relative flex justify-center flex-col text-lg cursor-pointer hover:text-orange-500">
-            <Link href="/all">모아보기</Link>
-            {path === "/all" && (
-              <motion.span className="absolute rounded-md h-11 w-11 bg-orange-500 bottom-[-15px] left-0 right-0 mx-auto"></motion.span>
-            )}
+          <li>
+            <Link href="/all">
+              <h2 className={pathname === "/all" ? styles.active : ""}>
+                모아보기
+              </h2>
+            </Link>
           </li>
         </ul>
       </div>
-    </motion.nav>
+      <div>
+        <ul>
+          <li>
+            <Link href="/mypage">
+              <h2 className={pathname === "/mypage" ? styles.active : ""}>
+                Mypage
+              </h2>
+            </Link>
+            {pathname === "/mypage" ? styles.active : ""}
+          </li>
+        </ul>
+      </div>
+    </div>
   );
 }
 
-export default SearchHeader;
+export default Navbar;

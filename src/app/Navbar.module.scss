@@ -1,0 +1,28 @@
+// Navbar.module.scss
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+
+.navbar {
+  background-color: black;
+  display: flex;
+  justify-content: space-between;
+  height: 10vh;
+  
+  ul {
+    display: flex;
+    gap: 5vw;
+    margin: 4vh;
+  }
+  a,
+  h1 {
+    color: white;
+    margin: 0;
+    text-decoration: none;
+    text-decoration-line: none;
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+  .active {
+    color: #46b1e1;
+  }
+}

@@ -12,16 +12,16 @@ function Navbar() {
           <h1>Mono Letter</h1>
           <li>
             <Link href="/">
-              <h2 className={pathname === "/" ? styles.active : ""}>
+              <h1 className={pathname === "/" ? styles.active : ""}>
                 자기소개서 작성하기
-              </h2>
+              </h1>
             </Link>
           </li>
           <li>
             <Link href="/all">
-              <h2 className={pathname === "/all" ? styles.active : ""}>
+              <h1 className={pathname === "/all" ? styles.active : ""}>
                 모아보기
-              </h2>
+              </h1>
             </Link>
           </li>
         </ul>
@@ -30,9 +30,9 @@ function Navbar() {
         <ul>
           <li>
             <Link href="/mypage">
-              <h2 className={pathname === "/mypage" ? styles.active : ""}>
+              <h1 className={pathname === "/mypage" ? styles.active : ""}>
                 Mypage
-              </h2>
+              </h1>
             </Link>
             {pathname === "/mypage" ? styles.active : ""}
           </li>

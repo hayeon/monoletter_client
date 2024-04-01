@@ -5,6 +5,8 @@
   width: 100%;
   height: 100%;
   margin-top: 5vh;
+  //가운데 맞춤
+  align-items: center;
 }
 
 .time {
@@ -26,9 +28,23 @@
   }
 }
 
-// .inputLetter 클래스를 .input 클래스와 같은 수준으로 이동합니다.
+
 .inputLetter {
-  height: 60vh; // 원하는 높이로 설정
+  height: 50vh; // 원하는 높이로 설정
   font-weight: normal;
   font-size: 10px;
+   margin-bottom: 3vh;
+}
+
+.btn{
+  display: flex;
+  background-color: #46B1E1;
+  color: white;
+  width: 80%;
+  height: 7vh;
+  border-radius: 10px;
+  margin-bottom: 2vh;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
 }

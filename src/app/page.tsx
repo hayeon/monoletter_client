@@ -1,5 +1,7 @@
+
 import styles from "./Home.module.scss";
 import WriteLetter from "./writeLetter";
+
 export default function Home() {
   return (
     <div className={styles.container}>

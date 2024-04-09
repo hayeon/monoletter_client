@@ -1,4 +1,3 @@
-"use client";
 import Navbar from "./Navbar";
 import "../../styles/reset.css"
 
@@ -9,9 +8,11 @@ export default function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      <Navbar />
-      {children}
-    </>
+    <html lang="en">
+      <body>
+        <Navbar />
+        {children}
+      </body>
+    </html>
   );
 }

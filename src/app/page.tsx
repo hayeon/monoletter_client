@@ -1,8 +1,11 @@
-
+"use client"
+import { useRecoilValue } from "recoil";
 import styles from "./Home.module.scss";
 import WriteLetter from "./writeLetter";
+import { letterState } from "./store/letterState";
 
 export default function Home() {
+  const feedback = useRecoilValue(letterState);
   return (
     <div className={styles.container}>
       <div className={styles.left}>
@@ -16,7 +19,7 @@ export default function Home() {
           </div>
         </div>
         <div className={styles.rightBottom}>
-          <div className={styles.innerBox}>오른쪽 2</div>
+          <div className={styles.innerBox}>{feedback.letter}</div>
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import Navbar from "./Navbar";
 import "../../styles/reset.css"
+import RecoilRootWrapper from "./RecoilWrapper";
 
 
 export default function Layout({
@@ -11,7 +12,7 @@ export default function Layout({
     <html lang="en">
       <body>
         <Navbar />
-        {children}
+        <RecoilRootWrapper>{children}</RecoilRootWrapper>
       </body>
     </html>
   );

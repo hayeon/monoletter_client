@@ -1,18 +1,18 @@
 import axios from "axios";
 
-interface SendDataResponse {
-  message: string;
-}
 
-export const sendData = async (data: string): Promise<SendDataResponse> => {
+export const sendData = async (letter: string, title:string) => {
   try {
-    const response = await axios.post("/api", data, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      
+    const response = await axios.post("http://localhost:5000/data", {
+      title: title,
+      letter: letter
+
     });
-    return response.data;
+    console.log("서버 응답", response.data);
+    const feedback = response.data;
+    console.log(feedback);
+    return feedback;
+    
   } catch (error) {
     if (error instanceof Error) {
       console.error(error);

@@ -22,7 +22,7 @@
   border-radius: 4px;
   outline: none;
   border: none;
-  font-size: 14px;
+  font-size: 20px;
   width: 95%;
   font-weight: bold;
   &:placeholder-shown {
@@ -34,7 +34,7 @@
 .inputLetter {
   height: 45vh; // 원하는 높이로 설정
   font-weight: normal;
-  font-size: 10px;
+  font-size: 15px;
    margin-bottom: 3vh;
 }
 
@@ -57,3 +57,14 @@
   font-size: 15.3px; 
   cursor: pointer;
 }
+
+
+.errorBorder {
+  border: 2px solid red; // 경고 상태에서의 테두리 색상
+}
+
+.warning {
+  color: red; // 경고 메시지의 색상
+}
+
+

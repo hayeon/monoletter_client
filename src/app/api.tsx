@@ -1,6 +1,4 @@
 import axios from "axios";
-
-
 export const sendData = async (letter: string, title:string) => {
   try {
     const response = await axios.post("http://localhost:5000/data", {

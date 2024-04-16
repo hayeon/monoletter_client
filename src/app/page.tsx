@@ -3,6 +3,7 @@ import { useRecoilValue } from "recoil";
 import styles from "./Home.module.scss";
 import WriteLetter from "./writeLetter";
 import { feedbackState } from "./store/atom";
+import Feedback from "./feedback";
 
 export default function Home() {
   const check = useRecoilValue(feedbackState);
@@ -20,7 +21,7 @@ export default function Home() {
           </div>
         </div>
         <div className={styles.rightBottom}>
-          <div className={styles.innerBox}>{check ? check: ' 아직 없습니다'}</div>
+          <div className={styles.innerBox}><Feedback/></div>
         </div>
       </div>
 

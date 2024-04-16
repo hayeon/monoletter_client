@@ -1,5 +1,4 @@
  //writeLetter.tsx
-
 "use client";
 import { sendData } from "./api";
 import styles from "./innerBox.module.scss";
@@ -17,7 +16,7 @@ function WriteLetter() {
   const setLetterAtom = useSetRecoilState(letterState);
   
   const handleLetterChange = (
-    //자기소개서 작성하는 부분
+    //자기소개서 작성함수
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     setletter(event.target.value);
@@ -44,6 +43,8 @@ function WriteLetter() {
     try {
       const responseData = await sendData(letter, title);
       setAiFeedback(responseData);
+      setLetterAtom(letter);
+      console.log(responseData);
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);

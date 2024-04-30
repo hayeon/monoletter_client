@@ -1,6 +1,7 @@
 import Navbar from "./Navbar";
 import "../../styles/reset.css"
 import RecoilRootWrapper from "./RecoilWrapper";
+import AuthWrapper from "../auth.wrapper";
 
 
 export default function Layout({
@@ -12,7 +13,9 @@ export default function Layout({
     <html lang="en">
       <body>
         <Navbar />
-        <RecoilRootWrapper>{children}</RecoilRootWrapper>
+        <RecoilRootWrapper> <AuthWrapper> 
+          {children}
+        </AuthWrapper></RecoilRootWrapper>
       </body>
     </html>
   );

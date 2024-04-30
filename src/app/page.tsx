@@ -4,9 +4,12 @@ import styles from "./Home.module.scss";
 import WriteLetter from "./writeLetter";
 import { feedbackState } from "./store/atom";
 import Feedback from "./feedback";
+import { useSession } from "next-auth/react" 
+
 
 export default function Home() {
   const check = useRecoilValue(feedbackState);
+  const { data: session, update } = useSession() 
   
   return (
     <div className={styles.container}>

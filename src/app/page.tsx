@@ -10,7 +10,7 @@ import { useSession } from "next-auth/react"
 export default function Home() {
   const check = useRecoilValue(feedbackState);
   const { data: session, update } = useSession() 
-  
+  console.log(session);
   return (
     <div className={styles.container}>
       <div className={styles.left}>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { feedbackState, letterState } from "./store/atom";
+import { feedbackState, letterState } from "../store/atom";
 import styles from "./feedback.module.scss";
 
 function Feedback() {

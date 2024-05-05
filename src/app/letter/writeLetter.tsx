@@ -3,7 +3,7 @@
 import { sendData } from "./api";
 import styles from "./innerBox.module.scss";
 import React, { useState } from "react";
-import { feedbackState, letterState } from "./store/atom";
+import { feedbackState, letterState } from "../store/atom";
 import { useSetRecoilState } from "recoil";
 
 function WriteLetter() {

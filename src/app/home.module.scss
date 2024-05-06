@@ -1,0 +1,41 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 90vh; 
+    margin-top: 10vh;
+    background-image: linear-gradient(white,white,#83d8ff , #46b1e1 130%); 
+  }
+  .maintitle{
+    font-size: 60px;
+    font-weight: bold;
+  }
+  .subtitle{
+    margin-top: 10vh;
+    font-size: 20px;
+    font-weight: 500;
+  }
+  .button {
+    margin-top: 10vh;
+    width: 15vw;
+    height: 10vh;
+    border-radius: 50px; 
+    background-color: black;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    text-decoration-line: none;
+    &:hover {
+     background-color: #46b1e1;
+    }
+  
+    // 반응형 웹 
+    @media (max-width: 768px) {
+      width: 50%; 
+    }
+  }
+  

@@ -48,18 +48,19 @@
   gap: 30vw;
 }
 .button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
   height: 5vh;
   width: 10vw;
   border-radius: 30px;
   cursor: pointer;
   transition: background-color 0.3s;
-  background-color: black;
+  background-color: black; 
   color: #fff;
 }
 
+/* 이 부분이 수정되었습니다. */
 .button.active {
   background-color: #46b1e1; /* 활성화 상태 */
 }
@@ -68,3 +69,4 @@
   pointer-events: none;
   opacity: 0.5; /* 선택적으로 비활성화된 모양을 표시 */
 }
+

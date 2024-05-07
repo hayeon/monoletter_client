@@ -8,10 +8,30 @@
   //가운데 맞춤
   align-items: center;
 }
+.topcontainer{
+  display: flex;
+  direction: column;  
+  gap: 15vw;
+  align-items: center                                                                                                                                         ;
+}
 
+.savebtn {
+  display: flex;
+  background-color: #46b1e1;
+  color: white;
+  width: 8vw;
+  height: 5vh;
+  border-radius: 10px;
+  margin-bottom: 2vh;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  transition:
+    background-color 0.3s,
+    font-size 0.3s; /* 부드러운 전환 효과 추가 */
+}
 .time {
   font-size: 10px;
-  font-weight: lighter;
 }
 
 .input {

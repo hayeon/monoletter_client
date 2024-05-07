@@ -1,20 +1,26 @@
-"use client"
+"use client";
 import { useRecoilValue } from "recoil";
 import styles from "./Home.module.scss";
 import WriteLetter from "./writeLetter";
-import { feedbackState } from "../store/atom";
 import Feedback from "./feedback";
-import { useSession } from "next-auth/react" 
-
+import { useSession } from "next-auth/react";
+import { useState } from "react";
 
 export default function Home() {
-  const check = useRecoilValue(feedbackState);
-  const { data: session, update } = useSession() 
+  const [mainTitle, setMaintitle] = useState("");
+  const dataString = localStorage.getItem("하연의 자기소개서");
+  if (dataString) {
+    const data = JSON.parse(dataString);
+    console.log(data);
+    setMaintitle(data.mainTitle);
+  }
+  const { data: session, update } = useSession();
   console.log(session);
+
   return (
     <div className={styles.container}>
       <div className={styles.left}>
-        <div className={styles.innerBox}>자기소개서 리스트</div>
+        <div className={styles.innerBox}>{mainTitle}</div>
       </div>
 
       <div className={styles.right}>
@@ -24,10 +30,11 @@ export default function Home() {
           </div>
         </div>
         <div className={styles.rightBottom}>
-          <div className={styles.innerBox}><Feedback/></div>
+          <div className={styles.innerBox}>
+            <Feedback />
+          </div>
         </div>
       </div>
-
     </div>
   );
 }

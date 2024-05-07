@@ -10,10 +10,12 @@ function Navbar() {
     <div className={styles.navbar}>
       <div>
         <ul>
+        <Link href="/">
           <h1>Mono Letter</h1>
+          </Link>
           <li>
-            <Link href="/">
-              <h1 className={pathname === "/" ? styles.active : ""}>
+            <Link href="/letter">
+              <h1 className={pathname === "/letter" ? styles.active : ""}>
                 자기소개서 작성하기
               </h1>
             </Link>

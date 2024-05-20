@@ -5,17 +5,19 @@ import Link from "next/link";
 import styles from "./home.module.scss";
 import Image from "next/image";
 import { useEffect } from "react";
-import getGoogleData from "./login/GoogleLogin";
+import { sendCode } from "./login/api";
+import { stringify } from "querystring";
 
 function Home() {
-  useEffect(() => {
 
+  useEffect(() => {
     const currentUrl = window.location.href;
     if (currentUrl.startsWith("http://localhost:3000/?code=")) {
       const urlParams = new URLSearchParams(window.location.search);
       const code = urlParams.get("code");
       if (code) {
-        getGoogleData(code);
+        const jwt = sendCode(code);
+        console.log(jwt);
       }
     }
   }, []);

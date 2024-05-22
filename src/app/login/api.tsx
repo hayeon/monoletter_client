@@ -1,14 +1,27 @@
+//백엔드로 사용자 정보 전송
+
 import axios from "axios";
 
-export const sendCode = async (code: string) => {
+interface Response {
+  statusCode: number;
+  message: string;
+}
+
+export const sendUserInfo = async (
+  email: string,
+  name: string,
+  detail: string
+): Promise<Response> => {
   try {
     const response = await axios.post("http://localhost:5000/googlelogin", {
-      code: code,
-      txt: "전송"
+      email: email,
+      name: name,
+      detail: detail,
     });
-    console.log("성공"+ response);
-    const jwt = response.data;
-    return jwt;
+    return {
+      statusCode: response.status,
+      message: response.data.message,
+    };
   } catch (error) {
     if (error instanceof Error) {
       console.error("로그인 통신 에러", error);

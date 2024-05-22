@@ -1,26 +1,42 @@
 "use client"
-
-
 import Link from "next/link";
 import styles from "./home.module.scss";
 import Image from "next/image";
 import { useEffect } from "react";
-import { sendCode } from "./login/api";
-import { stringify } from "querystring";
+import getGoogleData from "./login/GoogleLogin";
+import { useRouter } from "next/navigation";
+interface Response {
+  statusCode: number;
+  message: string;
+}
 
 function Home() {
+  const router = useRouter();
 
   useEffect(() => {
-    const currentUrl = window.location.href;
-    if (currentUrl.startsWith("http://localhost:3000/?code=")) {
-      const urlParams = new URLSearchParams(window.location.search);
-      const code = urlParams.get("code");
-      if (code) {
-        const jwt = sendCode(code);
-        console.log(jwt);
+    const fetchGoogleData = async () => {
+      const currentUrl = window.location.href;
+      if (currentUrl.startsWith("http://localhost:3000/?code=")) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get("code");
+        if (code) {
+          try {
+            const response = await getGoogleData(code) as Response;
+            console.log("메세쥐",response);
+            if (response.message === 'Registration complete.') {
+              router.push("/selectcategory");
+            } else {
+              router.push("/letter");
+            }
+          } catch (error) {
+            console.error("Error during Google data fetching", error);
+          }
+        }
       }
-    }
-  }, []);
+    };
+
+    fetchGoogleData();
+  }, [router]);
 
   return (
     <>

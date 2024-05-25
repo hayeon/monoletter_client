@@ -19,7 +19,7 @@ export const metadata = {
 export default function Layout({ children }: LayoutProps) {
   return (
     <html lang="en">
-      <body>
+      <body  suppressHydrationWarning={true}>
         <Navbar />
         <RecoilRootWrapper>{children}</RecoilRootWrapper>
       </body>

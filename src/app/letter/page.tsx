@@ -1,21 +1,18 @@
 "use client";
-import { useRecoilValue } from "recoil";
+
 import styles from "./Home.module.scss";
 import WriteLetter from "./writeLetter";
 import Feedback from "./feedback";
-import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 export default function Home() {
   const [mainTitle, setMaintitle] = useState("");
-  const dataString = localStorage.getItem("하연의 자기소개서");
-  if (dataString) {
-    const data = JSON.parse(dataString);
-    console.log(data);
-    setMaintitle(data.mainTitle);
-  }
-  const { data: session, update } = useSession();
-  console.log(session);
+  // const dataString = localStorage.getItem("하연의 자기소개서");
+  // if (dataString) {
+  //   const data = JSON.parse(dataString);
+  //   console.log(data);
+  //   setMaintitle(data.mainTitle);
+  // }
 
   return (
     <div className={styles.container}>

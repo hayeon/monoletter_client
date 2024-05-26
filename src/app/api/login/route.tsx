@@ -1,19 +1,19 @@
 //백엔드로 사용자 정보 전송
-"use server"
+"use server";
 import axios from "axios";
+import { loginCookie } from "../cookie/route";
 
 interface Response {
   status: number;
   message: string;
 }
 
-
-export const getGoogleData = async (code:string) => {
+export const getGoogleData = async (code: string) => {
   try {
     // Access token 받기
     const response = await axios.post(
       `https://oauth2.googleapis.com/token?code=${code}&client_id=${process.env.GOOGLE_CLINET_ID}&client_secret=${process.env.GOOGLE_CLINET_SEC}&redirect_uri=http://localhost:3000&grant_type=authorization_code`
-       );
+    );
     try {
       // 사용자 정보 가져오기
       const userInfo = await axios.get(
@@ -24,17 +24,16 @@ export const getGoogleData = async (code:string) => {
           },
         }
       );
-      const email = userInfo.data.email
+      const email = userInfo.data.email;
       const name = userInfo.data.name;
-      const detail = "프론트엔드"
-    
+      const detail = "";
+
       try {
-        const check = sendUserInfo(email, name, detail)
+        const check = sendUserInfo(email, name, detail);
         return check;
       } catch (e) {
-        console.log("사용자 정보 보내기", e);
+        console.log("사용자 정보 보내기 오류", e);
       }
-    
     } catch (e) {
       console.log("사용자 정보 가져오기 오류", e);
     }
@@ -54,6 +53,9 @@ export const sendUserInfo = async (
       name: name,
       detail: detail,
     });
+    if (response.status === 200) {
+      loginCookie(email);
+    }
     return {
       status: response.status,
       message: response.data.message,

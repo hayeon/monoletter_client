@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Link from "next/link";
 import styles from "./home.module.scss";
@@ -17,23 +17,27 @@ function Home() {
 
   useEffect(() => {
     const fetchGoogleData = async () => {
-
       const currentUrl = window.location.href;
       if (currentUrl.startsWith("http://localhost:3000/?code=")) {
         const urlParams = new URLSearchParams(window.location.search);
         const code = urlParams.get("code");
         if (code) {
           try {
-            console.log("인가 code", code);
-            const response = await getGoogleData(code) as Response;
-            console.log(response);
-            if (response.message === 'Registration complete.') {
+            const response = (await getGoogleData(code)) as Response;
+            if (response.message === "Registration complete.") {
+              router.push("/selectcategory");
+            } else if (
+              response.message === "Please complete your profile details."
+            ) {
               router.push("/selectcategory");
             } else {
               router.push("/letter");
             }
           } catch (error) {
-            console.error("홈 페이지에서 구글 유저 정보를 가져오는데 오류가 발생하였습니다. ", error);
+            console.error(
+              "홈 페이지에서 구글 유저 정보를 가져오는데 오류가 발생하였습니다. ",
+              error
+            );
           }
         }
       }

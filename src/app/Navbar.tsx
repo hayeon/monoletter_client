@@ -2,10 +2,13 @@
 import Link from "next/link";
 import styles from "./Navbar.module.scss"; 
 import { usePathname } from "next/navigation";
+import { deletecookie, } from "./api/cookie/route";
 
 function Navbar() {
   const pathname = usePathname();
-
+  const logout = () => {
+    deletecookie();
+  }
   return (
     <div className={styles.navbar}>
       <div>
@@ -32,11 +35,11 @@ function Navbar() {
       <div>
         <ul>
           <li>
-            <Link href="/mypage">
-              <h1 className={pathname === "/mypage" ? styles.active : ""}>
+            {/* <Link href="/mypage"> */}
+              <h1 className={pathname === "/mypage" ? styles.active : ""} onClick={logout}>
                 Mypage
               </h1>
-            </Link>
+            {/* </Link> */}
             {pathname === "/mypage" ? styles.active : ""}
           </li>
         </ul>

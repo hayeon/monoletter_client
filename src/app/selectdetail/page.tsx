@@ -5,6 +5,7 @@ import { detailState, selectState } from "../store/atom";
 import styles from "./selectDetail.module.scss";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { checkUser, sendDetail } from "../api/selectdetail/route";
 
 function SelectDetail() {
   const [selectDetails, setSelectDetails] = useState<string[]>([]);
@@ -79,7 +80,13 @@ function SelectDetail() {
         break;
     }
   }, []);
-  console.log(selectDetails);
+
+  // useEffect(()=> { //로그인 검증
+  //   const mail = 'hayun4475@gmail.com'
+  //   const res = checkUser(mail);
+  // })
+
+
   const handleSelectDetail = (detail: string) => {
     if (selectOne === detail) {
       //이미 선택한 걸 한 번 더 눌렀을 경우, 취소
@@ -93,12 +100,15 @@ function SelectDetail() {
   const onbackbtn = () => {
     window.history.back();
   };
-  const onnextbtn = () => {
-    if (selectOne) {
-      localStorage.setItem("select", selectOne);
-      router.push("/letter");
-    } else {
-      return;
+  const onnextbtn = async () => {
+    try {
+      const response = await sendDetail(selectOne);
+      if (response === 200) {
+        // 응답이 성공적이면, letter 페이지로 이동
+        router.push("/letter"); // '/letter'는 목적지 페이지의 경로
+      }
+    } catch (error) {
+      console.log("백엔드와 디테일 통신 중, 오류가 발생하였습니다.", error);
     }
   };
 

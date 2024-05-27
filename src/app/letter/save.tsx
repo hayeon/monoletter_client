@@ -1,13 +1,14 @@
-function save(feedback:JSX.Element[],atomLetter: string, atomTitle: string) {
-    const mainTitle = "하연의 자기소개서"
+import { sendLetter } from "../api/letter";
+
+function saveLetter(mainTitle:string, atomTitle: string, atomLetter: string) {
   const data = {
     mainTitle,
-    feedback,
     atomLetter,
     atomTitle,
   };
+  sendLetter(mainTitle, atomTitle, atomLetter );
   localStorage.setItem(mainTitle, JSON.stringify(data));
   console.log("저장 완료");
 }
 
-export default save;
+export default saveLetter;

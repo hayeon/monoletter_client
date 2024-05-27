@@ -3,11 +3,19 @@ import Link from "next/link";
 import styles from "./Navbar.module.scss"; 
 import { usePathname } from "next/navigation";
 import { deletecookie, } from "./api/cookie/route";
+import { useRouter } from "next/navigation";
 
 function Navbar() {
+  const router = useRouter();
   const pathname = usePathname();
   const logout = () => {
+   try {
     deletecookie();
+    console.log("로그아웃 성공");
+    router.push("/");
+   } catch (error) {
+    
+   }
   }
   return (
     <div className={styles.navbar}>

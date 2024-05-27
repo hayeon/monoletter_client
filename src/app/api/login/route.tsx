@@ -30,6 +30,7 @@ export const getGoogleData = async (code: string) => {
 
       try {
         const check = sendUserInfo(email, name, detail);
+        loginCookie(email);
         return check;
       } catch (e) {
         console.log("사용자 정보 보내기 오류", e);

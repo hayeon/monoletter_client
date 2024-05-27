@@ -1,15 +1,21 @@
-"use client";
+"use client"
 
-import Link from "next/link";
 import styles from "./home.module.scss";
 import Image from "next/image";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getGoogleData } from "./api/login/route";
-import { Console } from "console";
+import { checkcookie } from "./api/cookie/route";
+
+
 interface Response {
   status: number;
   message: string;
+}
+
+interface check{
+ res: boolean;
+
 }
 
 function Home() {
@@ -46,6 +52,16 @@ function Home() {
     fetchGoogleData();
   }, [router]);
 
+//쿠키가 있다면 letter 페이지로, 없다면 login 페이지로 이동
+const onClick = async() => {
+  const res =  await checkcookie();
+  if (res === true) {
+    router.push("/letter");
+  } else {
+    router.push("/login");
+  }
+}
+
   return (
     <>
       <div className={styles.container}>
@@ -55,9 +71,8 @@ function Home() {
           AI 직무역량 키워드 추천, AI 자기소개서 작성까지 취업 준비 과정의
           고민을 해결해드릴게요
         </h1>
-        <Link href="/selectcategory">
-          <h1 className={styles.button}> Monoletter 시작하기</h1>
-        </Link>
+  
+          <h1 className={styles.button} onClick={onClick}> Monoletter 시작하기</h1>
       </div>
 
       {/* <Image

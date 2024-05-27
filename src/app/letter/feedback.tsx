@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { feedbackState, letterState, titleState } from "../store/atom";
 import styles from "./feedback.module.scss";
-import save from "./save";
+import saveLetter from "./save";
 
 function Feedback() {
   const atomLetter = useRecoilValue(letterState);
@@ -11,7 +11,8 @@ function Feedback() {
   const [feedback, setFeedback] = useState<JSX.Element[]>([]);
   
   const onClick = () => {
-    save(feedback,atomLetter,atomTitle);
+    const basicTitle = "기본 자기소개서"
+    saveLetter( basicTitle, atomTitle, atomLetter);
   }
   useEffect(() => {
     const letterSplit = atomLetter.split("\n\n").filter((paragraph) => paragraph.trim() !== "");

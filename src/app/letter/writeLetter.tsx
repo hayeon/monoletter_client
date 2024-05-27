@@ -7,6 +7,7 @@ import { feedbackState, letterState, titleState } from "../store/atom";
 import { useSetRecoilState } from "recoil";
 import Loading from "./loading";
 import LoadingModal from "./loading";
+import saveLetter from "./save";
 
 function WriteLetter() {
   const [letter, setletter] = useState<string>("");
@@ -87,12 +88,20 @@ function WriteLetter() {
     localStorage.setItem("myLetter", JSON.stringify(data));
   };
 
+
+  const onSaveDB = () => {
+
+      const basicTitle = "기본 자기소개서"
+      saveLetter( basicTitle,  title,  letter);  //feedback에서 오류
+    }
+
+
   return (
     <div className={styles.innerBox}>
       <div className={styles.topcontainer}>
         <h1 className={styles.time}>최종 수정일: {savetime}</h1>
         <div className={styles.savebtn} onClick={onSaveClick}>
-          <h1>임시저장</h1>
+          <h1 onClick={onSaveDB }>임시저장</h1>
         </div>
       </div>
       <textarea

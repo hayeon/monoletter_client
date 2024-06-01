@@ -4,10 +4,9 @@ import { sendData } from "./api";
 import styles from "./innerBox.module.scss";
 import React, { useEffect, useState } from "react";
 import { feedbackState, letterState, titleState } from "../store/atom";
-import { useSetRecoilState } from "recoil";
-import Loading from "./loading";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import LoadingModal from "./loading";
-import saveLetter from "./save";
+import { saveLetter } from "../api/letter/router";
 
 function WriteLetter() {
   const [letter, setletter] = useState<string>("");
@@ -16,6 +15,9 @@ function WriteLetter() {
   const [warningMessage, setWarningMessage] = useState<string>("");
   const [inputBorder, setInputBorder] = useState<string>("");
   const [savetime, setSavetime] = useState<string>("");
+  const atomFeeedback = useRecoilValue(feedbackState);
+
+
   const loadLetterData = () => {
     const dataString = localStorage.getItem("myLetter");
     if (dataString) {
@@ -89,19 +91,17 @@ function WriteLetter() {
   };
 
 
-  const onSaveDB = () => {
-
+  const onSaveDB = () => { //
       const basicTitle = "기본 자기소개서"
-      saveLetter( basicTitle,  title,  letter);  //feedback에서 오류
+      saveLetter( basicTitle,  title,  letter);  //임시저장하기
     }
-
 
   return (
     <div className={styles.innerBox}>
       <div className={styles.topcontainer}>
         <h1 className={styles.time}>최종 수정일: {savetime}</h1>
         <div className={styles.savebtn} onClick={onSaveClick}>
-          <h1 onClick={onSaveDB }>임시저장</h1>
+          <h1 onClick={onSaveDB}>임시저장</h1>
         </div>
       </div>
       <textarea

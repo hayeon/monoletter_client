@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import styles from "./home.module.scss";
 import Image from "next/image";
@@ -7,15 +7,13 @@ import { useRouter } from "next/navigation";
 import { getGoogleData } from "./api/login/route";
 import { checkcookie } from "./api/cookie/route";
 
-
 interface Response {
   status: number;
   message: string;
 }
 
-interface check{
- res: boolean;
-
+interface check {
+  res: boolean;
 }
 
 function Home() {
@@ -52,15 +50,15 @@ function Home() {
     fetchGoogleData();
   }, [router]);
 
-//쿠키가 있다면 letter 페이지로, 없다면 login 페이지로 이동
-const onClick = async() => {
-  const res =  await checkcookie();
-  if (res === true) {
-    router.push("/letter");
-  } else {
-    router.push("/login");
-  }
-}
+  //쿠키가 있다면 letter 페이지로, 없다면 login 페이지로 이동
+  const onClick = async () => {
+    const res = await checkcookie();
+    if (res === true) {
+      router.push("/letter");
+    } else {
+      router.push("/login");
+    }
+  };
 
   return (
     <>
@@ -71,8 +69,13 @@ const onClick = async() => {
           AI 직무역량 키워드 추천, AI 자기소개서 작성까지 취업 준비 과정의
           고민을 해결해드릴게요
         </h1>
-  
-          <h1 className={styles.button} onClick={onClick}> Monoletter 시작하기</h1>
+
+        <h1 className={styles.button} onClick={onClick}>
+          Monoletter 시작하기
+          <div className={styles.hoverEffect}>
+            <div></div>
+          </div>
+        </h1>
       </div>
 
       {/* <Image

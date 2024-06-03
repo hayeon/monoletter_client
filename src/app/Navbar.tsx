@@ -18,7 +18,7 @@ function Navbar() {
    }
   }
   return (
-    <div className={styles.navbar}>
+    <div className={pathname === "/" ? styles.active : ""}>
       <div>
         <ul>
         <Link href="/">
@@ -26,7 +26,7 @@ function Navbar() {
           </Link>
           <li>
             <Link href="/letter">
-              <h1 className={pathname === "/letter" ? styles.active : ""}>
+            <h1 className={pathname.startsWith("/letter") ? styles.active : ""}>
                 자기소개서 작성하기
               </h1>
             </Link>

@@ -5,10 +5,8 @@ import styles from "./feedback.module.scss";
 
 function Feedback() {
   const atomLetter = useRecoilValue(letterState);
-  const atomTitle = useRecoilValue(titleState);
   const atomFeeedback = useRecoilValue(feedbackState);
   const [feedback, setFeedback] = useState<JSX.Element[]>([]);
-  
 
   useEffect(() => {
     const letterSplit = atomLetter.split("\n\n").filter((paragraph) => paragraph.trim() !== "");
@@ -17,7 +15,7 @@ function Feedback() {
     const combined = [];
     for (let i = 0; i < maxLength; i++) {
       if (letterSplit[i]) combined.push(<span key={`letter-${i}`}>{letterSplit[i]}</span>);
-      if (feedbackSplit[i]) combined.push(<span key={`feedback-${i}`} className={styles.feedbackStyle}>{'  => ' + feedbackSplit[i] + '\n\n'}</span>);
+      if (feedbackSplit[i]) combined.push(<span key={`feedback-${i}`} className={styles.feedbackStyle}>{feedbackSplit[i] + '\n\n'}</span>);
     }
     setFeedback(combined);
   }, [atomLetter, atomFeeedback]);

@@ -1,43 +1,31 @@
 "use client";
 
 import styles from "../../Home.module.scss";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import MainTitleModal from "../../mainTitleModl";
 import WriteLetter from "../../writeLetter";
 import Feedback from "../../feedback";
-import { useParams } from 'next/navigation';
-import { loadLetter } from "@/app/api/letter/router";
-
-
+import SubLetterList from "../../subLetterList";
+import { feedbackState } from "@/app/store/atom";
+import { useRecoilState } from "recoil";
+import { useEffect, useState } from "react";
 
 export default function Letter() {
-  const router = useRouter();
-  const params = useParams();
-  const {mainTitle_id, subTitle_id} = params;
-  const email = "hayun4475@gmail.com"
-  const loadData = async () => { //해당 사이트에 가입한 유저인지 확인
-    try {
-      const response = await loadLetter(mainTitle_id.toString(), subTitle_id.toString())
-      console.log(response)
-    } catch (error) {
-      console.error("데이터를 불러오는 줄 에러가 발생하였습니다. ", error);
-
-    }
-  };
-
-
+  const [feedback, setFeedback] = useRecoilState(feedbackState);
+  const [feedbackCheck, setFeedbackCheck] = useState<boolean>(false);
 
   useEffect(() => {
-    loadData();
-  }, []);
-
+    if (feedback === "") {
+      setFeedbackCheck(false);
+    } else {
+      setFeedbackCheck(true);
+    }
+  }, [feedback]);
 
   return (
     <div className={styles.container}>
       <div className={styles.left}>
-        <div className={styles.innerBox}></div>
+        <div className={styles.innerBox}>
+          <SubLetterList />
+        </div>
       </div>
       <div className={styles.right}>
         <div className={styles.rightTop}>
@@ -45,11 +33,13 @@ export default function Letter() {
             <WriteLetter />
           </div>
         </div>
-        <div className={styles.rightBottom}>
-          <div className={styles.innerBox}>
-            <Feedback />
+        {feedbackCheck ? (
+          <div className={styles.rightBottom}>
+            <div className={styles.innerBox}>
+              <Feedback />
+            </div>
           </div>
-        </div>
+        ) : null}
       </div>
     </div>
   );

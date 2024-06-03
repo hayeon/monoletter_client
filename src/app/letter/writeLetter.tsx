@@ -3,53 +3,91 @@
 import { sendData } from "./api";
 import styles from "./innerBox.module.scss";
 import React, { useEffect, useState } from "react";
-import { feedbackState, letterState, titleState } from "../store/atom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { feedbackState } from "@/app/store/atom";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import LoadingModal from "./loading";
-import { saveLetter } from "../api/letter/router";
+import { loadLetter, saveLetter } from "../api/letter/router";
+import { useParams, useRouter } from "next/navigation";
 
 function WriteLetter() {
-  const [letter, setletter] = useState<string>("");
+  const [letter, setLetter] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
-  const [title, settitle] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
   const [warningMessage, setWarningMessage] = useState<string>("");
   const [inputBorder, setInputBorder] = useState<string>("");
   const [savetime, setSavetime] = useState<string>("");
-  const atomFeeedback = useRecoilValue(feedbackState);
+  const params = useParams();
+  const { mainTitle_id, subTitle_id } = params;
+  const [feedback, setFeedback] = useRecoilState(feedbackState);
+  const [saveModal, setSaveModal] = useState<boolean>(false);
 
-
-  const loadLetterData = () => {
-    const dataString = localStorage.getItem("myLetter");
-    if (dataString) {
-      const data = JSON.parse(dataString);
-      setletter(data.letter);
-      settitle(data.title);
-      setSavetime(data.savetime);
+  const loadData = async () => {
+    //데이터 불러오기
+    try {
+      const response = await loadLetter(
+        mainTitle_id.toString(),
+        subTitle_id.toString()
+      );
+      if (response) {
+        setFeedback(response.data.feedback);
+        console.log(feedback);
+        setLetter(response.data.letter);
+        setTitle(response.data.subTitle);
+      }
+    } catch (error) {
+      console.error("데이터를 불러오는 줄 에러가 발생하였습니다. ", error);
     }
   };
+
   useEffect(() => {
-    loadLetterData();
+    loadData();
   }, []);
-  const setAiFeedback = useSetRecoilState(feedbackState);
-  const setLetterAtom = useSetRecoilState(letterState);
-  const setTitleAtom = useSetRecoilState(titleState);
+
+  const onSaveDB = async () => {
+    //저장하기
+    const response = await saveLetter(
+      mainTitle_id.toString(),
+      subTitle_id.toString(),
+      title,
+      letter,
+      feedback.toString()
+    );
+    if (response === 200) {
+      setSavetime(new Date().toLocaleString());
+      setSaveModal(true);
+      setTimeout(() => {
+        setSaveModal(false);
+      }, 3000); // 3초 뒤에 모달 닫기
+    }
+  };
 
   const handleLetterChange = (
     //자기소개서 작성함수
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
-    setletter(event.target.value);
+    setLetter(event.target.value);
     if (warningMessage || inputBorder) {
       setWarningMessage("");
       setInputBorder("");
     }
   };
 
+  // 공백을 제외한 글자 수 계산
+  const countCharsWithoutSpaces = (letter: string): number => {
+    return letter.replace(/\s+/g, "").length;
+  };
+
+  // 공백을 포함한 글자 수 계산
+  const countCharsWithSpaces = (letter: string): number => {
+    return letter.length;
+  };
+
   const handleTitleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    settitle(event.target.value);
+    setTitle(event.target.value);
   };
 
   const onClick = async () => {
+    //피드백 받기
     if (letter.length < 200) {
       // 글자 수가 200자 미만
       setWarningMessage("200글자 이상 작성해주세요.");
@@ -60,15 +98,15 @@ function WriteLetter() {
       setInputBorder("2px solid red");
     }
     setIsLoading(true); // 데이터 로딩 시작
-    setAiFeedback("");
     try {
       const responseData = await sendData(letter, title);
       if (responseData) {
-        setAiFeedback(responseData);
-        setLetterAtom(letter);
-        setTitleAtom(title);
+        setFeedback(responseData.toString());
+        console.log(feedback);
+        setLetter(letter);
+        setTitle(title);
+        onSaveDB();
         setIsLoading(false); // 데이터 로딩 완료
-        console.log("자소서 응답", responseData);
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -80,35 +118,31 @@ function WriteLetter() {
       setIsLoading(false); // 데이터 로딩 완료
     }
   };
-  const onSaveClick = () => {
-    setSavetime(new Date().toLocaleString());
-    const data = {
-      letter,
-      title,
-      savetime,
-    };
-    localStorage.setItem("myLetter", JSON.stringify(data));
-  };
-
-
-  const onSaveDB = () => { //
-      const basicTitle = "기본 자기소개서"
-      saveLetter( basicTitle,  title,  letter);  //임시저장하기
-    }
 
   return (
     <div className={styles.innerBox}>
+      {saveModal && (
+        <div className={styles.saveModal}>
+          <div>저장되었습니다!</div>
+        </div>
+      )}
       <div className={styles.topcontainer}>
         <h1 className={styles.time}>최종 수정일: {savetime}</h1>
-        <div className={styles.savebtn} onClick={onSaveClick}>
-          <h1 onClick={onSaveDB}>임시저장</h1>
+        <div className={styles.savebtn} onClick={onSaveDB}>
+          <h1>임시저장</h1>
         </div>
       </div>
+
       <textarea
         className={styles.input}
         placeholder="문항이 무엇인가요?"
         value={title}
         onChange={handleTitleChange}></textarea>
+      <div className={styles.countChars}>
+        <h1>공백 제외 글자수: {countCharsWithoutSpaces(letter)}</h1>
+        <h1>공백 포함 글자수: {countCharsWithSpaces(letter)}</h1>
+      </div>
+
       <textarea
         onChange={handleLetterChange}
         className={`${styles.input} ${styles.inputLetter} ${inputBorder && styles.errorBorder}`}
@@ -120,14 +154,14 @@ function WriteLetter() {
       {isLoading ? (
         <LoadingModal isOpen={isLoading} /> // 로딩 컴포넌트 렌더링
       ) : (
-        <>
+        <div className={styles.btnContainer}>
           <div className={styles.btn}>
             <h1>맞춤법 검사하기</h1>
           </div>
           <div onClick={onClick} className={styles.btn}>
             <h1>첨삭받기</h1>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

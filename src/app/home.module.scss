@@ -1,6 +1,7 @@
 .container {
     display: flex;
     flex-direction: column;
+    
     align-items: center;
     height: 90vh; 
     margin-top: 10vh;
@@ -15,30 +16,78 @@
     font-size: 20px;
     font-weight: 500;
   }
-  .button {
-    margin-top: 30vh;
-    width: 15vw;
-    height: 10vh;
-    border-radius: 50px; 
-    background-color: black;
-    color: white;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    text-decoration: none;
-    text-decoration-line: none;
-    &:hover {
-     background-color: #46b1e1;
-    }
-  
-    // 반응형 웹 
-    @media (max-width: 768px) {
-      width: 50%; 
-    }
+
+.button {
+  display: inline-flex;
+  margin-top: 20vh;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 60px;
+  border: 0;
+  font-size: 20px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10rem;
+  transition: all 0.02s;
+  font-weight: bold;
+  color: rgb(37, 37, 37);
+  z-index: 0;
+  box-shadow: 0 0px 7px -5px rgba(0, 0, 0, 0.5);
+}
+.button:hover {
+  background: rgb(193, 228, 248);
+  color: rgb(33, 0, 85);
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+.hoverEffect {
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.hoverEffect div {
+  background: rgb(222,0,75);
+  background: linear-gradient(90deg, rgb(215, 170, 230) 0%, rgb(107, 99, 199) 49%, rgba(0,212,255,1) 100%);
+  border-radius: 40rem;
+  width: 20rem;
+  height: 20rem;
+  transition: 0.4s;
+  filter: blur(20px);
+  animation: effect infinite 3s linear;
+  opacity: 0.5;
+}
+
+.button:hover .hoverEffect div {
+  width: 8rem;
+  height: 8rem;
+}
+
+@keyframes effect {
+
+  0% {
+    transform: rotate(0deg);
   }
-  
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+
+
+
   .image {
     width: 100%; /* 이미지 너비를 부모 요소의 100%로 설정 */
     height: auto; /* 이미지 높이를 자동으로 조절하여, 비율을 유지 */

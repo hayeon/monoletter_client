@@ -25,14 +25,15 @@
     display: flex;
     flex: 2;
     justify-content: center;
-    // align-items: center;
+    align-items: flex-start; 
     .innerBox {
       margin-top: 5vh;
-      height: 20vh;
+      display: flex;
+      height: auto;
     }
   }
 
-  .right {
+  .right { //자기소개서와 피드백 창
     flex: 8;
     display: flex;
     .rightTop,

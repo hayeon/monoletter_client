@@ -1,17 +1,18 @@
 "use client";
 
-import styles from "../../Home.module.scss";
+import styles from "../../styles/Home.module.scss";
 import WriteLetter from "../../writeLetter";
 import Feedback from "../../feedback";
 import SubLetterList from "../../subLetterList";
-import { feedbackState } from "@/app/store/atom";
+import { feedbackState, spellerAtom} from "@/app/store/atom";
 import { useRecoilState } from "recoil";
 import { useEffect, useState } from "react";
+import SpellerPage from "../../Spller";
 
 export default function Letter() {
   const [feedback, setFeedback] = useRecoilState(feedbackState);
   const [feedbackCheck, setFeedbackCheck] = useState<boolean>(false);
-
+  const [spllerAtom, setSplleratom] = useRecoilState(spellerAtom);
   useEffect(() => {
     if (feedback === "") {
       setFeedbackCheck(false);
@@ -33,7 +34,7 @@ export default function Letter() {
             <WriteLetter />
           </div>
         </div>
-        {feedbackCheck ? (
+                {feedbackCheck ? (
           <div className={styles.rightBottom}>
             <div className={styles.innerBox}>
               <Feedback />

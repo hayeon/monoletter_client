@@ -1,8 +1,6 @@
 "use client";
 
-import styles from "./Home.module.scss";
-import WriteLetter from "./writeLetter";
-import Feedback from "./feedback";
+import styles from "./styles/Home.module.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -40,7 +38,6 @@ export default function Letter() {
   return (
     <div className={styles.container}>
     {isModalOpen ? (<MainTitleModal isOpen={isModalOpen} />) : null}
-
     </div>
   );
 }

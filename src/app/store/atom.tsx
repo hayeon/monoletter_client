@@ -25,3 +25,20 @@ export const detailState= atom({
     key: "title",
     default: "",
   });
+
+  interface SpellerState {
+    original: string;
+    checked: string;
+    errors: number;
+  }
+  
+  export const spellerAtom = atom<SpellerState>({
+    key: 'spellerAtom',
+    default: {
+      original: '',
+      checked: '',
+      errors: 0,
+    },
+  });
+
+  

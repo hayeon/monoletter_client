@@ -5,7 +5,7 @@ import {
   loadAllLetter,
 } from "../api/letter/router";
 import React, { useEffect, useState } from "react";
-import styles from "./subLetterList.module.scss";
+import styles from "./styles/subLetterList.module.scss";
 import { FaTrashCan } from "react-icons/fa6";
 
 interface Letter {

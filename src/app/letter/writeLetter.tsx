@@ -1,17 +1,20 @@
 //writeLetter.tsx
 "use client";
 import { sendData } from "./api";
-import styles from "./innerBox.module.scss";
+import styles from "./styles/innerBox.module.scss";
 import React, { useEffect, useState } from "react";
-import { feedbackState } from "@/app/store/atom";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { feedbackState, spellerAtom } from "@/app/store/atom";
+import { useRecoilState, useRecoilValue } from "recoil";
 import LoadingModal from "./loading";
 import { loadLetter, saveLetter } from "../api/letter/router";
 import { useParams, useRouter } from "next/navigation";
+import { speller } from "../api/speller/route";
+import SpellerPage from "./Spller";
 
 function WriteLetter() {
   const [letter, setLetter] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isSpellerModal, setSpellerModal] = useState(false);
   const [title, setTitle] = useState<string>("");
   const [warningMessage, setWarningMessage] = useState<string>("");
   const [inputBorder, setInputBorder] = useState<string>("");
@@ -20,6 +23,10 @@ function WriteLetter() {
   const { mainTitle_id, subTitle_id } = params;
   const [feedback, setFeedback] = useRecoilState(feedbackState);
   const [saveModal, setSaveModal] = useState<boolean>(false);
+  const [comparisonResults, setSpellerRes] = useRecoilState(spellerAtom);
+  const spellerState = useRecoilValue(spellerAtom);
+
+  const shouldRenderSpellerPage = spellerState.original !== '';
 
   const loadData = async () => {
     //데이터 불러오기
@@ -102,7 +109,6 @@ function WriteLetter() {
       const responseData = await sendData(letter, title);
       if (responseData) {
         setFeedback(responseData.toString());
-        console.log(feedback);
         setLetter(letter);
         setTitle(title);
         onSaveDB();
@@ -118,9 +124,29 @@ function WriteLetter() {
       setIsLoading(false); // 데이터 로딩 완료
     }
   };
+  const onSpllerClcik = async () => {
+    if (countCharsWithoutSpaces(letter) > 500) {
+      setWarningMessage("맞춤법 검사는 500글자 단위로만 가능해요");
+      setInputBorder("2px solid red");
+      return ;
+    } else {
+      const res = await speller(letter);
+      setSpellerRes({
+        original: res.original,
+        checked: res.checked,
+        errors: res.errors,
+      });
+      setSpellerModal(true);
+    };
+    }
+
 
   return (
     <div className={styles.innerBox}>
+      {shouldRenderSpellerPage && 
+        <div>
+          <SpellerPage />
+        </div>}
       {saveModal && (
         <div className={styles.saveModal}>
           <div>저장되었습니다!</div>
@@ -155,7 +181,7 @@ function WriteLetter() {
         <LoadingModal isOpen={isLoading} /> // 로딩 컴포넌트 렌더링
       ) : (
         <div className={styles.btnContainer}>
-          <div className={styles.btn}>
+          <div className={styles.btn} onClick={onSpllerClcik}>
             <h1>맞춤법 검사하기</h1>
           </div>
           <div onClick={onClick} className={styles.btn}>

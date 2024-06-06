@@ -1,7 +1,6 @@
 "use client";
 
 import styles from "./home.module.scss";
-import Image from "next/image";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getGoogleData } from "./api/login/route";

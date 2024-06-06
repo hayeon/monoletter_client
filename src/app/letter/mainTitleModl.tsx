@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./mainTitleModal.module.scss";
+import styles from "./styles/mainTitleModal.module.scss";
 import {addLetter } from "../api/letter/router";
 import { useRouter } from "next/navigation";
 

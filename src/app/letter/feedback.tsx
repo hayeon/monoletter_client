@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { feedbackState, letterState, titleState } from "../store/atom";
-import styles from "./feedback.module.scss";
+import styles from "./styles/feedback.module.scss";
 
 function Feedback() {
   const atomLetter = useRecoilValue(letterState);

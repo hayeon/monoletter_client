@@ -1,9 +1,11 @@
 import axios from "axios";
 export const sendData = async (letter: string, title: string) => {
   try {
+    const mail = "hayun4475@gmail.com"
     const response = await axios.post("http://localhost:5000/data", {
       title: title,
       letter: letter,
+      mail: mail
     });
     const feedback = response.data;
     return feedback;

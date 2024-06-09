@@ -7,7 +7,6 @@ import SubLetterList from "../../subLetterList";
 import { feedbackState, spellerAtom} from "@/app/store/atom";
 import { useRecoilState } from "recoil";
 import { useEffect, useState } from "react";
-import SpellerPage from "../../Spller";
 
 export default function Letter() {
   const [feedback, setFeedback] = useRecoilState(feedbackState);

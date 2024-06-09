@@ -1,3 +1,5 @@
+"use sever"
+
 import axios from "axios";
 
 export const addLetter = async (mainTitle: string) => {
@@ -23,7 +25,7 @@ export const addLetter = async (mainTitle: string) => {
 export const loadLetter = async (mainTitle_id: string, subTitle_id: string) => {
   //자기소개서 불러오기
   try {
-    const response = await axios.post("http://localhost:5000/loadletter", {
+    const response = await axios.post("http://127.0.0.1:5000/loadletter", {
       mainTitle_id: mainTitle_id,
       subTitle_id: subTitle_id,
       email: "hayun4475@gmail.com",
@@ -36,10 +38,10 @@ export const loadLetter = async (mainTitle_id: string, subTitle_id: string) => {
 
 
 export const loadAllLetter = async (mainTitle_id: string) => {
-  "use sever"
+
   //자기소개서 불러오기
   try {
-    const response = await axios.post("http://localhost:5000/loadallletter", {
+    const response = await axios.post("http://127.0.0.1:5000/loadallletter", {
       mainTitle_id: mainTitle_id,
       email: "hayun4475@gmail.com",
     });
@@ -59,7 +61,7 @@ mainTitle_id: string,
   const email = "hayun4475@gmail.com";
   feedback = ""
   try {
-    const response = await axios.post("http://localhost:5000/saveletter", {
+    const response = await axios.post("http://127.0.0.1:5000/saveletter", {
       email,
       mainTitle_id,
       subTitle_id,

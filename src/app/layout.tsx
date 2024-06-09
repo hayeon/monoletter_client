@@ -3,7 +3,6 @@ import Navbar from "./Navbar";
 import "../../styles/reset.css";
 import RecoilRootWrapper from "./RecoilWrapper";
 
-
 interface LayoutProps {
   children: React.ReactNode;
 }
@@ -19,7 +18,7 @@ export const metadata = {
 export default function Layout({ children }: LayoutProps) {
   return (
     <html lang="en">
-      <body  suppressHydrationWarning={true}>
+      <body suppressHydrationWarning={true}>
         <Navbar />
         <RecoilRootWrapper>{children}</RecoilRootWrapper>
       </body>

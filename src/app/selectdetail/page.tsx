@@ -2,7 +2,7 @@
 
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { detailState, selectState } from "../store/atom";
-import styles from "./selectDetail.module.scss";
+import styles from "./styles/selectDetail.module.scss";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { checkUser, sendDetail } from "../api/selectdetail/route";

@@ -2,10 +2,9 @@
 import axios from "axios";
 
 export const sendDetail = async (detail: string) => {
-
     const email = "hayun4475@gmail.com"
     try {
-        const response = await axios.put('http://localhost:5000/updatedetail', {
+        const response = await axios.put('http://127.0.0.1:5000/updatedetail', {
           email,
           detail,
         });
@@ -23,7 +22,7 @@ export const sendDetail = async (detail: string) => {
 
   export const checkUser = async (email:string) => {
     try {
-      const response = await axios.post("https://localhost:5000/checkuser", {
+      const response = await axios.post("http://127.0.0.1:5000/checkuser", {
         email: email
       })
       return response;

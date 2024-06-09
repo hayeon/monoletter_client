@@ -21,18 +21,6 @@ function Navbar() {
     } catch (error) {}
   };
 
-  useEffect(() => {
-    // element와 childElement 찾기
-    const element = document.getElementById('parentElementId');
-    const childElement = document.getElementById('childElementId');
-
-    if (element && childElement && element.contains(childElement)) {
-      element.removeChild(childElement);
-    }
-    return () => {
-      // cleanup
-    };
-  }, []);
   return (
     <div className={styles.navbar}>
       <div>
@@ -70,7 +58,8 @@ function Navbar() {
             {isMenuOpen && (
         <div className={styles.myPageMenu}>
           <p onClick={logout}>로그아웃하기</p>
-          <p >직무 변경하기</p>
+          <Link href="/selectcategory">         <p >직무 변경하기</p></Link>
+ 
         </div>
       )}
 
